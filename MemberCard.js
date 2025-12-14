@@ -4,6 +4,7 @@ import QRCode from "react-qr-code";
 import axios from 'axios';
 import html2canvas from 'html2canvas'; // 1. Import library
 import './MemberCard.css';
+import BASE_URL from '../api'; // Import the URL
 
 const MemberCard = () => {
   const { id } = useParams();
@@ -12,7 +13,7 @@ const MemberCard = () => {
   useEffect(() => {
     const fetchMember = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/members/${id}`);
+        const res = await axios.get(`${BASE_URL}/api/members/${id}`);
         setMember(res.data);
       } catch (error) {
         console.error("Error fetching member", error);
