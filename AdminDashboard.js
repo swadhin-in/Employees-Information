@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import BASE_URL from '../api'; // Import the URL
 
 const AdminDashboard = () => {
   const [members, setMembers] = useState([]);
@@ -22,7 +23,8 @@ const AdminDashboard = () => {
   }, []);
 
   const fetchMembers = async () => {
-    const res = await axios.get('http://localhost:5000/api/members');
+    const res = await axios.get(`${BASE_URL}/api/members`);
+    // ... inside handleSubmit ...
     setMembers(res.data);
   };
 
@@ -47,7 +49,7 @@ const AdminDashboard = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/members', data, {
+      await axios.post(`${BASE_URL}/api/members`, data, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'auth-token': token // ATTACH TOKEN HERE
@@ -73,7 +75,7 @@ const AdminDashboard = () => {
   // 3. Protect the DELETE Request
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/members/${id}`, {
+      await axios.delete(`${BASE_URL}/api/members/${id}`, {
         headers: { 'auth-token': token } // ATTACH TOKEN HERE
       });
       fetchMembers();
